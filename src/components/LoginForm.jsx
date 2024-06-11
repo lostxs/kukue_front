@@ -93,8 +93,8 @@ function LoginForm() {
 
         try {
             await login(username, password);
-            // navigate("/public_chat");
-            window.location.href = "/initial";
+            navigate("/public_chat");
+            // window.location.href = "/initial";
         } catch (error) {
             console.log(error)
             setLoginError("Login attempt failed, please check your credentials.");

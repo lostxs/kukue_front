@@ -28,8 +28,9 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error("Login attempt failed:", error);
             throw error;
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     };
 
     const logout = async () => {
@@ -147,11 +148,7 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={value}>
-            {loading ? (
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-                    <CircularProgress />
-                </Box>
-            ) : children}
+            {children}
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                 <Typography component="span">Ваша сессия истекла. Пожалуйста, войдите заново.</Typography>
             </Modal>
