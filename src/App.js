@@ -8,35 +8,39 @@ import LeftBar from "./components/LeftBar";
 import PublicChat from "./components/PublicChat";
 import { AuthProvider } from "./AuthContext";
 import InitialPage from "./components/InitialPage";
+import RegistrationForm from "./components/RegisterForm";
+import OtpForm from "./components/OtpForm";
 
 function App() {
-    const [theme, setTheme] = useState("dark");
-    const toggleTheme = () => {
-        setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-    };
+  const [theme, setTheme] = useState("dark");
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
 
-    return (
-        <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-            <CssBaseline />
-            <AuthProvider>
-                <HashRouter>
-                    <Box sx={{ display: 'flex' }}>
-                        <LeftBar toggleTheme={toggleTheme} currentTheme={theme} />
-                        <Box component="main" sx={{ flexGrow: 1 }}>
-                            <Routes>
-                                <Route path="/auth" element={<LoginForm />} />
-                                <Route path="/" element={<ProtectedRoute />}>
-                                    <Route path="initial" element={<InitialPage />} />
-                                    <Route path="public_chat" element={<PublicChat />} />
-                                </Route>
-                                <Route path="*" element={<Navigate to="/auth" replace />} />
-                            </Routes>
-                        </Box>
-                    </Box>
-                </HashRouter>
-            </AuthProvider>
-        </ThemeProvider>
-    );
+  return (
+    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+      <CssBaseline />
+      <AuthProvider>
+        <HashRouter>
+          <Box sx={{ display: "flex" }}>
+            <LeftBar toggleTheme={toggleTheme} currentTheme={theme} />
+            <Box component="main" sx={{ flexGrow: 1 }}>
+              <Routes>
+                <Route path="/auth" element={<LoginForm />} />
+                <Route path="/register" element={<RegistrationForm />} />
+                <Route path="/verify" element={<OtpForm />} />
+                <Route path="/" element={<ProtectedRoute />}>
+                  <Route path="initial" element={<InitialPage />} />
+                  <Route path="public_chat" element={<PublicChat />} />
+                </Route>
+                <Route path="*" element={<Navigate to="/auth" replace />} />
+              </Routes>
+            </Box>
+          </Box>
+        </HashRouter>
+      </AuthProvider>
+    </ThemeProvider>
+  );
 }
 
 export default App;
